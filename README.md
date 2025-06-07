@@ -1,13 +1,22 @@
-# AWS Session Manager TUI (Go)
+## SM - AWS Session Manager CLI: manage your EC2 instances in style!
 
-Terminal application to list and connect to EC2 instances via AWS Session Manager.
+The SM tool provides a command line interface for interacting with your AWS EC2 instances.
+The aim of this project is to make navigation and connection easier.
+your EC2 instances using Session Manager, which is a safer option than SSH.
 
 ## Requirements
 
-- Go 1.22+
-- AWS CLI configured with profiles
+You must install and configure the AWS CLI on your system because the SM uses the .aws/config file to authenticate with AWS.
 
 ## Installation
+
+SM is available on Linux, macOS and Windows platforms.
+Binary files for these operating systems are available as tarballs on the [release page](https://github.com/filipponova/sm/releases).
+
+## Building From Source
+
+ SM is currently using Golang v1.24.x or above.
+ In order to build SM from source you must:
 
 ```bash
 git clone https://github.com/filipponova/sm.git
@@ -19,11 +28,5 @@ go build -o sm
 ## Usage
 
 ```bash
-./sm list --region us-east-1 --profile default
+ sm list --profile profileName
 ```
-
-## Estrutura do Projeto
-
-- `cmd/` - Comandos cobra (root, list, etc)
-- `internal/` - Lógica de negócio (AWS, sessão, tipos)
-- `main.go` - Inicialização do CLI
