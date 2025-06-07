@@ -14,7 +14,7 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use:   "sm",
-	Short: "Commandline for simplify the AWS Session Manager.",
+	Short: "CLI tool for managing AWS Session Manager sessions.",
 }
 
 func Execute() {
