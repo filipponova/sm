@@ -23,7 +23,6 @@ func StartSession(region, profile, instanceID string) {
 	err := cmd.Run()
 	if err != nil {
 		fmt.Printf("Failed to start session: %v\n", err)
-		return err
+		return
 	}
-	return nil
 }

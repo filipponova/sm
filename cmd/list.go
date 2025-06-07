@@ -19,6 +19,8 @@ func (i instanceItem) Title() string       { return i.inst.Name }
 func (i instanceItem) Description() string { return i.inst.ID }
 func (i instanceItem) FilterValue() string { return i.inst.Name }
 
+const minTUIListHeight = 10
+
 type tuiModel struct {
 	list     list.Model
 	selected instanceItem
