@@ -76,8 +76,8 @@ func listAndConnectCmd() *cobra.Command {
 			}
 			// Adjust the list height to show all instances at once
 			height := len(items)
-			if height < 5 {
-				height = 5 // minimum height for UX
+			if height < minTUIListHeight {
+				height = minTUIListHeight // minimum height for UX
 			}
 			l := list.New(items, list.NewDefaultDelegate(), 50, height+2)
 			l.Title = "Select an EC2 instance"
