@@ -1,10 +1,10 @@
-name: CI
+name: Go CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -13,22 +13,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          python-version: '3.12'
+          go-version: '1.24'
 
-      - name: Install uv
-        run: pip install uv
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
-      - name: Install dependencies with uv
-        run: uv pip install --no-cache --system -r pyproject.toml
+      - name: Install dependencies
+        run: go mod download
 
-      - name: Install ruff and isort
-        run: pip install ruff isort
+      - name: Build
+        run: go build -v ./...
 
-      - name: Run ruff linter
-        run: ruff check .
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          args: --timeout=5m
 
-      - name: Run isort check
-        run: isort . --check-only
