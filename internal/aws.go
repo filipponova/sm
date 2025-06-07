@@ -46,7 +46,12 @@ func GetEC2Instances(region, profile string) ([]Instance, error) {
 					Values: []string{id},
 				}},
 			})
-			if err != nil || len(ssmInfo.InstanceInformationList) == 0 {
+			if err != nil {
+				fmt.Printf("Error describing instance information for instance %s: %v\n", id, err)
+				continue
+			}
+			if len(ssmInfo.InstanceInformationList) == 0 {
+				fmt.Printf("No instance information found for instance %s\n", id)
 				continue
 			}
 			name := id

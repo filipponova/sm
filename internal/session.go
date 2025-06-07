@@ -11,6 +11,7 @@ func StartSession(region, profile, instanceID string) {
 	cmd := exec.CommandContext(
 		context.Background(),
 		"aws", "ssm", "start-session",
+		"--color", "on",
 		"--region", region,
 		"--profile", profile,
 		"--target", instanceID,
