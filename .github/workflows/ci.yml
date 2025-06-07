@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies with uv
+        run: uv pip install --no-cache --system -r pyproject.toml
+
+      - name: Install ruff and isort
+        run: pip install ruff isort
+
+      - name: Run ruff linter
+        run: ruff check .
+
+      - name: Run isort check
+        run: isort . --check-only
