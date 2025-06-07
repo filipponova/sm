@@ -22,7 +22,7 @@ jobs:
         run: pip install uv
 
       - name: Install dependencies with uv
-        run: uv pip install -r pyproject.toml
+        run: uv pip install --no-cache --system -r pyproject.toml
 
       - name: Install ruff and isort
         run: pip install ruff isort
